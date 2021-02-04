@@ -1,5 +1,7 @@
 import React from "react";
 import { AnswerObject } from "../App";
+import { Wrapper, ButtonWrapper } from "./QuestionCard.styles";
+
 type Props = {
   question: string;
   answers: string[];
@@ -17,28 +19,34 @@ const QuestionCard: React.FC<Props> = ({
   questionNr,
   totalQuestions,
 }) => (
-  <div>
-    <p className="number">
-      Question:{question} / {totalQuestions}
-    </p>
-    {/* dangerouslySetInnerHTML??무엇인지 innerHTML같은 느낌 */}
-    <p dangerouslySetInnerHTML={{ __html: question }} />
-    <div>
-      {answers.map((answer) => (
-        <div key={answer}>
-          {/* disabled */}
-          {/* !!userAnswer 이렇게도 사용가능 함. */}
-          <button
-            disabled={userAnswer ? true : false}
-            value={answer}
-            onClick={callback}
+  <>
+    <Wrapper>
+      <p className="number">
+        Question:{questionNr} / {totalQuestions}
+      </p>
+      {/* dangerouslySetInnerHTML??무엇인지 innerHTML같은 느낌 */}
+      <p dangerouslySetInnerHTML={{ __html: question }} />
+      <div>
+        {answers.map((answer) => (
+          <ButtonWrapper
+            key={answer}
+            correct={userAnswer?.correctAnswer === answer}
+            userClicked={userAnswer?.answer === answer}
           >
-            <span dangerouslySetInnerHTML={{ __html: answer }} />
-          </button>
-        </div>
-      ))}
-    </div>
-  </div>
+            {/* disabled */}
+            {/* !!userAnswer 이렇게도 사용가능 함. */}
+            <button
+              disabled={userAnswer ? true : false}
+              value={answer}
+              onClick={callback}
+            >
+              <span dangerouslySetInnerHTML={{ __html: answer }} />
+            </button>
+          </ButtonWrapper>
+        ))}
+      </div>
+    </Wrapper>
+  </>
 );
 
 export default QuestionCard;
