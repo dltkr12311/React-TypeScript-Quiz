@@ -1,11 +1,3 @@
-# React App for Quiz
+# TypeScript Simple Project
 
-## API
-
-Trivia [link](https://opentdb.com/api.php)
-
-## Packages
-
-- styled-component
-- react
-- typescript
+### 01. Quiz Game
